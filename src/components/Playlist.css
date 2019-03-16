@@ -1,4 +1,21 @@
 .playlist {
-	justify-content: center;
+	justify-content: flex-start;
 	display: flex;
+}
+.img-playlist {
+}
+.info-playlist {
+}
+.name-info-playlist {
+	color: rgb(236, 236, 236);
+	font-weight: bold;
+}
+.owner-info-playlist {
+	color: rgb(179, 179, 179);
+	font-weight: bold;
+}
+.owner-info-playlist span {
+	color: rgb(236, 236, 236);
+}
+.url-info-playlist {
 }
