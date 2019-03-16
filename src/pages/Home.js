@@ -51,8 +51,8 @@ export default class Home extends Component {
 		return (
 			<div className="container">
 				<div className="title-header">
-					<h1>SpotiFood</h1>
-					<img height={36} src={spotifyLogo} alt="SpotiFood" />
+					<h1 className="title-text">SpotiFood</h1>
+					<img className="logo" height={36} src={spotifyLogo} alt="SpotiFood" />
 				</div>
 				<div className="content-wrapper">
 					<div className="search-content-wrapper">

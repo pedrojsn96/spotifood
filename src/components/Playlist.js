@@ -11,12 +11,14 @@ export default class Playlist extends Component {
 		return (
 			<li className="playlist">
 				<div className="img-playlist">
-					<img height={36} src={spotifyLogo} alt="SpotiFood" />
+					<img height={100} src={playlist.images[0].url} alt="SpotiFood" />
 				</div>
 				<div className="info-playlist">
 					<p>{playlist.name}</p>
 					<p>{playlist.owner.display_name}</p>
-					<p>{playlist.external_urls.spotify}</p>
+					<a href={playlist.external_urls.spotify} target="blank">
+						{playlist.external_urls.spotify}
+					</a>
 				</div>
 			</li>
 		);
