@@ -18,11 +18,12 @@ export default class Playlist extends Component {
 					</a>
 				</div>
 				<div className="info-playlist">
+					<p className="text-info-playlist">PLAYLIST</p>
 					<p className="name-info-playlist">{playlist.name}</p>
 					<p className="owner-info-playlist">
-						Created by <span>{playlist.owner.display_name}</span>
+						Created by <span>{playlist.owner.display_name}</span> -{' '}
+						{playlist.tracks.total} songs
 					</p>
-					<p className="owner-info-playlist">{playlist.tracks.total} songs</p>
 				</div>
 			</li>
 		);
