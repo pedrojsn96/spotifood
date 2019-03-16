@@ -8,7 +8,8 @@ import { InputGroup, FormControl } from 'react-bootstrap';
 
 export default class SearchPlaylist extends Component {
 	state = {
-		search: ''
+		search: '',
+		playlists: ''
 	};
 
 	handleNewSearch = async e => {
@@ -16,30 +17,24 @@ export default class SearchPlaylist extends Component {
 
 		const search = this.state.search;
 
-		alert(search);
-
-		await api.get('featured-playlists', {
-			locale: search,
-			limit: 5
+		const searchResponse = await api.get('featured-playlists', {
+			params: {
+				locale: search,
+				limit: 2
+			}
 		});
+
+		console.log('SEARCH: ', searchResponse);
 
 		this.setState({ search: '' });
 	};
 
 	handleSearchChange = e => {
 		this.setState({ search: e.target.value });
+		console.log(this.state.search);
 	};
 	render() {
 		return (
-			// <form>
-			// 	<input
-			// 		value={this.state.search}
-			// 		onChange={this.handleSearchChange}
-			// 		onKeyDown={this.handleNewSearch}
-			// 		placeholder="Search"
-			// 		className="search-input"
-			// 	/>
-			// </form>
 			<InputGroup className="search-form">
 				<InputGroup.Prepend>
 					<InputGroup.Text id="basic-addon1">@</InputGroup.Text>
@@ -48,6 +43,9 @@ export default class SearchPlaylist extends Component {
 					placeholder="Search a playlist"
 					aria-label="Search"
 					aria-describedby="basic-addon1"
+					value={this.state.search}
+					onChange={this.handleSearchChange}
+					onKeyDown={this.handleNewSearch}
 				/>
 			</InputGroup>
 		);

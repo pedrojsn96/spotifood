@@ -22,11 +22,12 @@ export default class Home extends Component {
 	async componentDidMount() {
 		const response = await api.get('featured-playlists', {
 			params: {
-				limit: 5
+				limit: 10
 			}
 		});
 
 		this.setState({ playlists: response.data.playlists.items });
+		console.log('HOME: ', this.state.playlists);
 	}
 
 	render() {
