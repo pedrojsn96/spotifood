@@ -13,6 +13,8 @@ import {
 	Form,
 	Alert
 } from 'react-bootstrap';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -21,6 +23,7 @@ import * as playlistsActions from '../actions/playlists';
 class FilterPlaylist extends Component {
 	state = {
 		search: '',
+		datePicker: '',
 		playlists: '',
 		localeFilters: [],
 		countryFilters: [],
@@ -53,10 +56,13 @@ class FilterPlaylist extends Component {
 
 		const country = this.country.value === 'empty' ? null : this.country.value;
 		const locale = this.locale.value === 'empty' ? null : this.locale.value;
+		const timestamp =
+			this.state.datePicker === '' ? null : this.state.datePicker;
 
 		const data = {
 			country: country,
-			locale: locale
+			locale: locale,
+			timestamp: timestamp
 		};
 
 		const params = this.checkParams(data);
@@ -114,6 +120,10 @@ class FilterPlaylist extends Component {
 
 	handleSearchChange = e => {
 		this.setState({ search: e.target.value });
+	};
+
+	handleDatePickerChange = date => {
+		this.setState({ datePicker: moment(date, 'YYYY-MM-DD HH:mm').format() });
 	};
 
 	render() {
@@ -204,7 +214,29 @@ class FilterPlaylist extends Component {
 											</FormControl>
 										</Form.Group>
 									</Form.Row>
-									<Button variant="primary" type="submit">
+									<Form.Row>
+										<Form.Group>
+											<Form.Label
+												style={{
+													color: 'rgb(236, 236, 236)',
+													fontWeight: 'bold'
+												}}
+											>
+												Timestamp
+											</Form.Label>
+										</Form.Group>
+									</Form.Row>
+
+									<DatePicker
+										selected={this.state.date}
+										onChange={this.handleDatePickerChange}
+									/>
+									<br />
+									<Button
+										variant="primary"
+										type="submit"
+										style={{ marginTop: 10 }}
+									>
 										Apply
 									</Button>
 								</Form>
