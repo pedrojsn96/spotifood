@@ -31,27 +31,41 @@ class FilterPlaylist extends Component {
 			'https://www.mocky.io/v2/5a25fade2e0000213aa90776'
 		);
 
-		this.setState({ localeFilters: response.data.filters[0].values });
-		this.setState({ countryFilters: response.data.filters[1].values });
+		this.setState({
+			localeFilters: response.data.filters[0].values,
+			countryFilters: response.data.filters[1].values
+		});
 	}
+
+	checkParams = params => {
+		for (var propName in params) {
+			if (params[propName] === null || params[propName] === undefined) {
+				delete params[propName];
+			}
+		}
+		return params;
+	};
 
 	handleApplyFilter = async e => {
 		e.preventDefault();
 
-		const country = this.country.value;
-		const locale = this.locale.value;
+		const country = this.country.value === 'empty' ? null : this.country.value;
+		const locale = this.locale.value === 'empty' ? null : this.locale.value;
 
-		const params = {
+		const data = {
 			country: country,
 			locale: locale
 		};
+
+		const params = this.checkParams(data);
 
 		const response = await api.get('browse/featured-playlists', {
 			params: params
 		});
 
+		this.props.filterPlaylists(response.data.playlists.items);
+
 		this.setState({
-			playlists: response.data.playlists.items,
 			openFilterOptions: false
 		});
 	};
@@ -134,7 +148,7 @@ class FilterPlaylist extends Component {
 												name="locale"
 												ref={c => (this.locale = c)}
 											>
-												<option>Choose...</option>
+												<option value="empty">Choose...</option>
 												{localeFilters.map((item, index) => (
 													<option key={index} value={item.value}>
 														{item.name}
@@ -156,7 +170,7 @@ class FilterPlaylist extends Component {
 												name="country"
 												ref={c => (this.country = c)}
 											>
-												<option>Choose...</option>
+												<option value="empty">Choose...</option>
 												{countryFilters.map((item, index) => (
 													<option key={index} value={item.value}>
 														{item.name}

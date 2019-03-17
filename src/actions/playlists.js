@@ -11,3 +11,10 @@ export function searchPlaylists(playlists) {
 		playlists: playlists
 	};
 }
+
+export function filterPlaylists(playlists) {
+	return {
+		type: 'FILTER_PLAYLISTS',
+		playlists: playlists
+	};
+}
