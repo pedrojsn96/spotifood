@@ -24,7 +24,7 @@ export default class FilterPlaylist extends Component {
 
 	async componentDidMount() {
 		const response = await axios.get(
-			'http://www.mocky.io/v2/5a25fade2e0000213aa90776'
+			'https://www.mocky.io/v2/5a25fade2e0000213aa90776'
 		);
 
 		this.setState({ localeFilters: response.data.filters[0].values });
