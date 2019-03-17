@@ -10,7 +10,7 @@ import './Home.css';
 import api from '../services/api';
 
 //components
-import SearchPlaylist from '../components/SearchPlaylist';
+import FilterPlaylist from '../components/FilterPlaylist';
 import ListPlaylist from '../components/ListPlaylist';
 
 export default class Home extends Component {
@@ -20,14 +20,13 @@ export default class Home extends Component {
 	};
 
 	async componentDidMount() {
-		const response = await api.get('featured-playlists', {
+		const response = await api.get('browse/featured-playlists', {
 			params: {
 				limit: 10
 			}
 		});
 
 		this.setState({ playlists: response.data.playlists.items });
-		console.log('HOME: ', this.state.playlists);
 	}
 
 	render() {
@@ -38,9 +37,10 @@ export default class Home extends Component {
 					<img className="logo" height={36} src={spotifyLogo} alt="SpotiFood" />
 				</div>
 				<div className="content-wrapper">
-					<div className="search-content-wrapper">
-						<SearchPlaylist />
-					</div>
+					{/* <div className="search-content-wrapper">
+						<FilterPlaylist />
+					</div> */}
+					<FilterPlaylist />
 					<div className="playlists-content-wrapper">
 						<ListPlaylist playlists={this.state.playlists} />
 					</div>
