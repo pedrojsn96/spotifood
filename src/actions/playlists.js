@@ -4,3 +4,10 @@ export function listPlaylists(playlists) {
 		playlists: playlists
 	};
 }
+
+export function searchPlaylists(playlists) {
+	return {
+		type: 'SEARCH_PLAYLISTS',
+		playlists: playlists
+	};
+}

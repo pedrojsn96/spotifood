@@ -4,7 +4,7 @@ const api = axios.create({
 	baseURL: 'https://api.spotify.com/v1/',
 	headers: {
 		Authorization:
-			'Bearer BQD9uK4iCP5cDiDTNQsQLyYJ3hHLgg7SOq27vCXMezM9q2OtdTG_Ou15HdHo8-xtU-AkkY7BMngHwOB5HIfTPfw-SiZ9aaH2v6uvbX5W6qRTqY76qQvqmQb0XFgfYdCIhAC4JriJEX4da1OTqlEg1muEXvhE3vIlYipHYd5z4dsvezBqX8Me'
+			'Bearer BQBg2tyWSPevE1suOXwY1xWLPD6of5u2UjjV7nk6kcpmTE3b3ZH6h3JJU19FJAQgmjBrhTMom2fIxqS939gnKqEFwp8ZOvff-kU1HEltJf0p2vrETo83moeXsmUo5Hho5bVqGJe-T0nD6tnMc3coFaqKAwqSmP_pCpHE-4J06IezAsvGCC0u'
 	}
 });
 

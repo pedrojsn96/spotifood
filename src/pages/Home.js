@@ -26,7 +26,7 @@ class Home extends Component {
 	async componentDidMount() {
 		const response = await api.get('browse/featured-playlists', {
 			params: {
-				limit: 10
+				limit: 5
 			}
 		});
 		this.props.listPlaylists(response.data.playlists.items);

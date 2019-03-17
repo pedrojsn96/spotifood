@@ -13,7 +13,11 @@ import {
 	Form
 } from 'react-bootstrap';
 
-export default class FilterPlaylist extends Component {
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as playlistsActions from '../actions/playlists';
+
+class FilterPlaylist extends Component {
 	state = {
 		search: '',
 		playlists: '',
@@ -61,18 +65,16 @@ export default class FilterPlaylist extends Component {
 			params: {
 				type: 'playlist',
 				q: search,
-				limit: 2
+				limit: 5
 			}
 		});
 
-		console.log('SEARCH: ', searchResponse);
-
+		this.props.searchPlaylists(searchResponse.data.playlists.items);
 		this.setState({ search: '' });
 	};
 
 	handleSearchChange = e => {
 		this.setState({ search: e.target.value });
-		console.log(this.state.search);
 	};
 
 	render() {
@@ -85,7 +87,7 @@ export default class FilterPlaylist extends Component {
 							<InputGroup.Text id="basic-addon1">@</InputGroup.Text>
 						</InputGroup.Prepend>
 						<FormControl
-							placeholder="Search a playlist"
+							placeholder="Search a playlist ... (Press Enter to Search)"
 							aria-label="Search"
 							value={this.state.search}
 							onChange={this.handleSearchChange}
@@ -175,3 +177,15 @@ export default class FilterPlaylist extends Component {
 		);
 	}
 }
+
+const mapStateToProps = state => ({
+	playlists: state.playlists
+});
+
+const mapDispatchToProps = dispatch =>
+	bindActionCreators(playlistsActions, dispatch);
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(FilterPlaylist);
