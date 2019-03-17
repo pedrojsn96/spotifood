@@ -10,7 +10,8 @@ import {
 	FormControl,
 	Button,
 	Collapse,
-	Form
+	Form,
+	Alert
 } from 'react-bootstrap';
 
 import { bindActionCreators } from 'redux';
@@ -23,7 +24,8 @@ class FilterPlaylist extends Component {
 		playlists: '',
 		localeFilters: [],
 		countryFilters: [],
-		openFilterOptions: false
+		openFilterOptions: false,
+		filterApplied: false
 	};
 
 	async componentDidMount() {
@@ -66,7 +68,30 @@ class FilterPlaylist extends Component {
 		this.props.filterPlaylists(response.data.playlists.items);
 
 		this.setState({
-			openFilterOptions: false
+			openFilterOptions: false,
+			filterApplied: true
+		});
+	};
+
+	resetFilters = async e => {
+		e.preventDefault();
+
+		const response = await api.get('browse/featured-playlists', {
+			params: {
+				limit: 5
+			}
+		});
+
+		this.props.listPlaylists(response.data.playlists.items);
+
+		this.setState({
+			filterApplied: false
+		});
+	};
+
+	closeModal = () => {
+		this.setState({
+			filterApplied: false
 		});
 	};
 
@@ -98,7 +123,7 @@ class FilterPlaylist extends Component {
 				<div className="filter-options">
 					<InputGroup className="search-form">
 						<InputGroup.Prepend>
-							<InputGroup.Text id="basic-addon1">@</InputGroup.Text>
+							<InputGroup.Text>@</InputGroup.Text>
 						</InputGroup.Prepend>
 						<FormControl
 							placeholder="Search a playlist ... (Press Enter to Search)"
@@ -186,6 +211,20 @@ class FilterPlaylist extends Component {
 							</div>
 						</div>
 					</Collapse>
+					<Alert
+						dismissible
+						show={this.state.filterApplied}
+						onClose={this.closeModal}
+						variant="success"
+					>
+						<Alert.Heading>Filters applied!</Alert.Heading>
+						<hr />
+						<div className="d-flex justify-content-start">
+							<Button onClick={this.resetFilters} variant="outline-success">
+								Remove Filters
+							</Button>
+						</div>
+					</Alert>
 				</div>
 			</>
 		);
