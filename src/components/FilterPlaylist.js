@@ -114,7 +114,7 @@ export default class FilterPlaylist extends Component {
 				<div>
 					<Collapse in={this.state.openFilterOptions}>
 						<div className="collapse-filter-options">
-							<p className="title-text">Filters Options</p>
+							<p className="filter-title-text">Filters Options</p>
 							<div className="filter-form">
 								<Form onSubmit={this.handleApplyFilter}>
 									<Form.Row>
