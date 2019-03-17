@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-// import axios from 'axios';
+import { Provider } from 'react-redux';
+import Store from './Store';
 
 import Home from './pages/Home';
 
@@ -11,11 +12,13 @@ class App extends Component {
 
 	render() {
 		return (
-			<BrowserRouter>
-				<Switch>
-					<Route path="/" exact component={Home} />
-				</Switch>
-			</BrowserRouter>
+			<Provider store={Store}>
+				<BrowserRouter>
+					<Switch>
+						<Route path="/" exact component={Home} />
+					</Switch>
+				</BrowserRouter>
+			</Provider>
 		);
 	}
 }

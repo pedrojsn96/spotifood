@@ -6,6 +6,10 @@ import spotifyLogo from '../spotify.png';
 //styles
 import './Home.css';
 
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as playlistsActions from '../actions/playlists';
+
 // api
 import api from '../services/api';
 
@@ -13,7 +17,7 @@ import api from '../services/api';
 import FilterPlaylist from '../components/FilterPlaylist';
 import ListPlaylist from '../components/ListPlaylist';
 
-export default class Home extends Component {
+class Home extends Component {
 	state = {
 		search: '',
 		playlists: []
@@ -25,8 +29,7 @@ export default class Home extends Component {
 				limit: 10
 			}
 		});
-
-		this.setState({ playlists: response.data.playlists.items });
+		this.props.listPlaylists(response.data.playlists.items);
 	}
 
 	render() {
@@ -37,15 +40,24 @@ export default class Home extends Component {
 					<img className="logo" height={36} src={spotifyLogo} alt="SpotiFood" />
 				</div>
 				<div className="content-wrapper">
-					{/* <div className="search-content-wrapper">
-						<FilterPlaylist />
-					</div> */}
 					<FilterPlaylist />
 					<div className="playlists-content-wrapper">
-						<ListPlaylist playlists={this.state.playlists} />
+						<ListPlaylist playlists={this.props.playlists} />
 					</div>
 				</div>
 			</div>
 		);
 	}
 }
+
+const mapStateToProps = state => ({
+	playlists: state.playlists
+});
+
+const mapDispatchToProps = dispatch =>
+	bindActionCreators(playlistsActions, dispatch);
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Home);
