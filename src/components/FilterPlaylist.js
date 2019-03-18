@@ -58,11 +58,15 @@ class FilterPlaylist extends Component {
 		const locale = this.locale.value === 'empty' ? null : this.locale.value;
 		const timestamp =
 			this.state.datePicker === '' ? null : this.state.datePicker;
+		const limit = this.limit.value === '' ? null : this.limit.value;
+		const offset = this.offset.value === '' ? null : this.offset.value;
 
 		const data = {
 			country: country,
 			locale: locale,
-			timestamp: timestamp
+			timestamp: timestamp,
+			limit: limit,
+			offset: offset
 		};
 
 		const params = this.checkParams(data);
@@ -232,6 +236,42 @@ class FilterPlaylist extends Component {
 												name="timestamp"
 												ref={c => (this.timestamp = c)}
 												onChange={this.handleDatePickerChange}
+											/>
+										</Form.Group>
+									</Form.Row>
+									<Form.Row>
+										<Form.Group controlId="limit" style={{ marginRight: 20 }}>
+											<Form.Label
+												style={{
+													color: 'rgb(236, 236, 236)',
+													fontWeight: 'bold'
+												}}
+											>
+												Limit
+											</Form.Label>
+											<FormControl
+												as="input"
+												name="limit"
+												type="number"
+												placeholder="5"
+												ref={c => (this.limit = c)}
+											/>
+										</Form.Group>
+										<Form.Group controlId="offset">
+											<Form.Label
+												style={{
+													color: 'rgb(236, 236, 236)',
+													fontWeight: 'bold'
+												}}
+											>
+												Offset
+											</Form.Label>
+											<FormControl
+												as="input"
+												name="offset"
+												type="number"
+												placeholder="5"
+												ref={c => (this.offset = c)}
 											/>
 										</Form.Group>
 									</Form.Row>
