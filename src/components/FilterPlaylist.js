@@ -13,7 +13,7 @@ import {
 	Form,
 	Alert
 } from 'react-bootstrap';
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 import { bindActionCreators } from 'redux';
@@ -123,7 +123,9 @@ class FilterPlaylist extends Component {
 	};
 
 	handleDatePickerChange = date => {
-		this.setState({ datePicker: moment(date, 'YYYY-MM-DD HH:mm').format() });
+		this.setState({
+			datePicker: moment(date.target.value, 'YYYY-MM-DD HH:mm').format()
+		});
 	};
 
 	render() {
@@ -215,7 +217,7 @@ class FilterPlaylist extends Component {
 										</Form.Group>
 									</Form.Row>
 									<Form.Row>
-										<Form.Group>
+										<Form.Group controlId="timestamp">
 											<Form.Label
 												style={{
 													color: 'rgb(236, 236, 236)',
@@ -224,19 +226,17 @@ class FilterPlaylist extends Component {
 											>
 												Timestamp
 											</Form.Label>
+											<FormControl
+												as="input"
+												type="datetime-local"
+												name="timestamp"
+												ref={c => (this.timestamp = c)}
+												onChange={this.handleDatePickerChange}
+											/>
 										</Form.Group>
 									</Form.Row>
-
-									<DatePicker
-										selected={this.state.date}
-										onChange={this.handleDatePickerChange}
-									/>
 									<br />
-									<Button
-										variant="primary"
-										type="submit"
-										style={{ marginTop: 10 }}
-									>
+									<Button variant="primary" type="submit">
 										Apply
 									</Button>
 								</Form>
