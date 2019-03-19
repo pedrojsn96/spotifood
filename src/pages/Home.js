@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
-// import { Button } from 'react-bootstrap';
 import spotifyLogo from '../spotify.png';
 
 //styles
 import './Home.css';
+
+import { Alert } from 'react-bootstrap';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -19,12 +20,25 @@ import ListPlaylist from '../components/ListPlaylist';
 
 class Home extends Component {
 	state = {
-		playlists: []
+		playlists: [],
+		expiredToken: false
 	};
 
-	async componentDidMount() {
-		const response = await api.get('browse/featured-playlists');
-		this.props.listPlaylists(response.data.playlists.items);
+	componentDidMount() {
+		api
+			.get('browse/featured-playlists')
+			.then(data => {
+				this.props.listPlaylists(data.data.playlists.items);
+			})
+			.catch(error => {
+				if (error.response.status === 401) {
+					this.setState({ expiredToken: true });
+					setInterval(() => {
+						this.setState({ expiredToken: false });
+						window.location.replace('http://localhost:3000/');
+					}, 3000);
+				}
+			});
 	}
 
 	syncMethod = () => {
@@ -34,29 +48,47 @@ class Home extends Component {
 				this.props.listPlaylists(data.data.playlists.items);
 			})
 			.catch(error => {
-				console.log(error);
+				if (error.response.status === 401) {
+					this.setState({ expiredToken: true });
+					setInterval(() => {
+						this.setState({ expiredToken: false });
+						window.location.replace('http://localhost:3000/');
+					}, 3000);
+				}
 			});
 	};
 
 	componentWillMount() {
 		setInterval(() => {
-			// window.location.reload();
 			this.syncMethod();
-		}, 30000);
+		}, 3000);
 	}
 
 	render() {
+		const { expiredToken } = this.state;
 		return (
 			<div className="container">
 				<div className="title-header">
 					<h1 className="title-text">SpotiFood</h1>
 					<img className="logo" height={36} src={spotifyLogo} alt="SpotiFood" />
 				</div>
-				{/* <div className="content-wrapper"> */}
 				<div className="row">
 					<FilterPlaylist />
 					<div className="col-12">
-						<ListPlaylist playlists={this.props.playlists} />
+						{!expiredToken ? (
+							<ListPlaylist playlists={this.props.playlists} />
+						) : (
+							<Alert
+								dismissible
+								show={this.state.filterApplied}
+								onClose={this.closeModal}
+								variant="danger"
+								style={{ justifyContent: 'center' }}
+							>
+								<Alert.Heading>Tour token has been expired!</Alert.Heading>
+								<hr />
+							</Alert>
+						)}
 					</div>
 				</div>
 			</div>

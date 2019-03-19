@@ -13,7 +13,7 @@ import {
 	Form,
 	Alert
 } from 'react-bootstrap';
-// import DatePicker from 'react-datepicker';
+
 import moment from 'moment';
 
 import { bindActionCreators } from 'redux';
@@ -51,7 +51,7 @@ class FilterPlaylist extends Component {
 		return params;
 	};
 
-	handleApplyFilter = async e => {
+	handleApplyFilter = e => {
 		e.preventDefault();
 
 		const country = this.country.value === 'empty' ? null : this.country.value;
@@ -71,11 +71,22 @@ class FilterPlaylist extends Component {
 
 		const params = this.checkParams(data);
 
-		const response = await api.get('browse/featured-playlists', {
-			params: params
-		});
-
-		this.props.filterPlaylists(response.data.playlists.items);
+		api
+			.get('browse/featured-playlists', {
+				params: params
+			})
+			.then(data => {
+				this.props.listPlaylists(data.data.playlists.items);
+			})
+			.catch(error => {
+				if (error.response.status === 401) {
+					this.setState({ expiredToken: true });
+					setInterval(() => {
+						this.setState({ expiredToken: false });
+						window.location.replace('http://localhost:3000/');
+					}, 3000);
+				}
+			});
 
 		this.setState({
 			openFilterOptions: false,
@@ -83,12 +94,23 @@ class FilterPlaylist extends Component {
 		});
 	};
 
-	resetFilters = async e => {
+	resetFilters = e => {
 		e.preventDefault();
 
-		const response = await api.get('browse/featured-playlists');
-
-		this.props.listPlaylists(response.data.playlists.items);
+		api
+			.get('browse/featured-playlists')
+			.then(data => {
+				this.props.listPlaylists(data.data.playlists.items);
+			})
+			.catch(error => {
+				if (error.response.status === 401) {
+					this.setState({ expiredToken: true });
+					setInterval(() => {
+						this.setState({ expiredToken: false });
+						window.location.replace('http://localhost:3000/');
+					}, 3000);
+				}
+			});
 
 		this.setState({
 			filterApplied: false
@@ -106,23 +128,31 @@ class FilterPlaylist extends Component {
 
 		const response = await api.get('browse/featured-playlists');
 
-		const playlists = response.data.playlists.items;
+		if (response.status === 401) {
+			this.setState({ expiredToken: true });
+			setInterval(() => {
+				this.setState({ expiredToken: false });
+				window.location.replace('http://localhost:3000/');
+			}, 3000);
+		} else {
+			const playlists = response.data.playlists.items;
 
-		const search = this.state.search;
+			const search = this.state.search;
 
-		let filteredPlaylist = playlists.filter(playlist => {
-			if (playlist.name.toLowerCase().includes(search)) {
-				return playlist;
-			}
-			return null;
-		});
+			let filteredPlaylist = playlists.filter(playlist => {
+				if (playlist.name.toLowerCase().includes(search)) {
+					return playlist;
+				}
+				return null;
+			});
 
-		this.props.searchPlaylists(filteredPlaylist);
-		this.setState({
-			openFilterOptions: false,
-			filterApplied: true,
-			search: ''
-		});
+			this.props.searchPlaylists(filteredPlaylist);
+			this.setState({
+				openFilterOptions: false,
+				filterApplied: true,
+				search: ''
+			});
+		}
 	};
 
 	handleSearchChange = e => {
@@ -174,7 +204,6 @@ class FilterPlaylist extends Component {
 						<Collapse in={this.state.openFilterOptions}>
 							<div className="collapse-filter-options">
 								<p className="filter-title-text">Filters Options</p>
-								{/* <div className="filter-form"> */}
 								<div>
 									<Form
 										onSubmit={this.handleApplyFilter}
