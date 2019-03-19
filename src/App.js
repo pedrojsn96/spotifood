@@ -17,8 +17,8 @@ class App extends Component {
 			<Provider store={Store}>
 				<BrowserRouter>
 					<Switch>
-						{/* <Redirect path="/auth" to="/home" component={Home} /> */}
-						<Redirect path="/auth" to="/list" />
+						{/* <Redirect path="/auth" to="/list" /> */}
+						<Redirect path="/auth" to="/home" />
 						<Route path="/" exact component={Login} />
 						<Route path="/home" component={Home} />
 						<Route path="/list" component={Test} />
