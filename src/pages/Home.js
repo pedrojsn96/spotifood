@@ -37,7 +37,8 @@ class Home extends Component {
 					this.setState({ expiredToken: true });
 					setInterval(() => {
 						this.setState({ expiredToken: false });
-						window.location.replace('http://localhost:3000/');
+						// window.location.replace('http://localhost:3000/');
+						window.location.replace('http://spotifood-p.herokuapp.com/');
 					}, 3000);
 				}
 			});
@@ -54,7 +55,8 @@ class Home extends Component {
 					this.setState({ expiredToken: true });
 					setInterval(() => {
 						this.setState({ expiredToken: false });
-						window.location.replace('http://localhost:3000/');
+						// window.location.replace('http://localhost:3000/');
+						window.location.replace('http://spotifood-p.herokuapp.com/');
 					}, 3000);
 				}
 			});
