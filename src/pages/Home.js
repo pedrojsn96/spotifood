@@ -34,9 +34,10 @@ class Home extends Component {
 					<h1 className="title-text">SpotiFood</h1>
 					<img className="logo" height={36} src={spotifyLogo} alt="SpotiFood" />
 				</div>
-				<div className="content-wrapper">
+				{/* <div className="content-wrapper"> */}
+				<div className="row">
 					<FilterPlaylist />
-					<div className="playlists-content-wrapper">
+					<div className="col-12">
 						<ListPlaylist playlists={this.props.playlists} />
 					</div>
 				</div>

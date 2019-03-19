@@ -138,19 +138,20 @@ class FilterPlaylist extends Component {
 	render() {
 		const { openFilterOptions, localeFilters, countryFilters } = this.state;
 		return (
-			<>
-				<div className="filter-options">
-					<InputGroup className="search-form">
-						<FormControl
-							placeholder="Search a playlist ... (Press Enter to Search)"
-							aria-label="Search"
-							value={this.state.search}
-							onChange={this.handleSearchChange}
-							onKeyDown={this.handleNewSearch}
-						/>
-					</InputGroup>
-
-					<div className="form-group button-filter-options">
+			<div className="col-12">
+				<div className="row">
+					<div className="col-md-6 mb-3">
+						<InputGroup className="search-form">
+							<FormControl
+								placeholder="Search a playlist ... (Press Enter to Search)"
+								aria-label="Search"
+								value={this.state.search}
+								onChange={this.handleSearchChange}
+								onKeyDown={this.handleNewSearch}
+							/>
+						</InputGroup>
+					</div>
+					<div className="col-md-6 mb-3">
 						<Button
 							onClick={() =>
 								this.setState({ openFilterOptions: !openFilterOptions })
@@ -168,141 +169,153 @@ class FilterPlaylist extends Component {
 					</div>
 				</div>
 				<br />
-				<div>
-					<Collapse in={this.state.openFilterOptions}>
-						<div className="collapse-filter-options">
-							<p className="filter-title-text">Filters Options</p>
-							<div className="filter-form">
-								<Form onSubmit={this.handleApplyFilter}>
-									<Form.Row>
-										<Form.Group controlId="locale" style={{ marginRight: 20 }}>
-											<Form.Label
-												style={{
-													color: 'rgb(236, 236, 236)',
-													fontWeight: 'bold'
-												}}
+				<div className="row">
+					<div className="col-12">
+						<Collapse in={this.state.openFilterOptions}>
+							<div className="collapse-filter-options">
+								<p className="filter-title-text">Filters Options</p>
+								{/* <div className="filter-form"> */}
+								<div>
+									<Form
+										onSubmit={this.handleApplyFilter}
+										className="col-12 filter-form"
+									>
+										<Form.Row>
+											<Form.Group
+												controlId="locale"
+												style={{ marginRight: 20 }}
 											>
-												Locale
-											</Form.Label>
-											<FormControl
-												as="select"
-												name="locale"
-												ref={c => (this.locale = c)}
-											>
-												<option value="empty">Choose...</option>
-												{localeFilters.map((item, index) => (
-													<option key={index} value={item.value}>
-														{item.name}
-													</option>
-												))}
-											</FormControl>
-										</Form.Group>
-										<Form.Group controlId="country">
-											<Form.Label
-												style={{
-													color: 'rgb(236, 236, 236)',
-													fontWeight: 'bold'
-												}}
-											>
-												Country
-											</Form.Label>
-											<FormControl
-												as="select"
-												name="country"
-												ref={c => (this.country = c)}
-											>
-												<option value="empty">Choose...</option>
-												{countryFilters.map((item, index) => (
-													<option key={index} value={item.value}>
-														{item.name}
-													</option>
-												))}
-											</FormControl>
-										</Form.Group>
-									</Form.Row>
-									<Form.Row>
-										<Form.Group controlId="timestamp">
-											<Form.Label
-												style={{
-													color: 'rgb(236, 236, 236)',
-													fontWeight: 'bold'
-												}}
-											>
-												Timestamp
-											</Form.Label>
-											<FormControl
-												as="input"
-												type="datetime-local"
-												name="timestamp"
-												ref={c => (this.timestamp = c)}
-												onChange={this.handleDatePickerChange}
-											/>
-										</Form.Group>
-									</Form.Row>
-									<Form.Row>
-										<Form.Group controlId="limit" style={{ marginRight: 20 }}>
-											<Form.Label
-												style={{
-													color: 'rgb(236, 236, 236)',
-													fontWeight: 'bold'
-												}}
-											>
-												Limit
-											</Form.Label>
-											<FormControl
-												as="input"
-												name="limit"
-												type="number"
-												placeholder="5"
-												min="1"
-												max="50"
-												ref={c => (this.limit = c)}
-											/>
-										</Form.Group>
-										<Form.Group controlId="offset">
-											<Form.Label
-												style={{
-													color: 'rgb(236, 236, 236)',
-													fontWeight: 'bold'
-												}}
-											>
-												Offset
-											</Form.Label>
-											<FormControl
-												as="input"
-												name="offset"
-												type="number"
-												placeholder="5"
-												min="1"
-												max="50"
-												ref={c => (this.offset = c)}
-											/>
-										</Form.Group>
-									</Form.Row>
-									<br />
-									<Button variant="primary" type="submit">
-										Apply
-									</Button>
-								</Form>
+												<Form.Label
+													style={{
+														color: 'rgb(236, 236, 236)',
+														fontWeight: 'bold'
+													}}
+												>
+													Locale
+												</Form.Label>
+												<FormControl
+													as="select"
+													name="locale"
+													ref={c => (this.locale = c)}
+												>
+													<option value="empty">Choose...</option>
+													{localeFilters.map((item, index) => (
+														<option key={index} value={item.value}>
+															{item.name}
+														</option>
+													))}
+												</FormControl>
+											</Form.Group>
+											<Form.Group controlId="country">
+												<Form.Label
+													style={{
+														color: 'rgb(236, 236, 236)',
+														fontWeight: 'bold'
+													}}
+												>
+													Country
+												</Form.Label>
+												<FormControl
+													as="select"
+													name="country"
+													ref={c => (this.country = c)}
+												>
+													<option value="empty">Choose...</option>
+													{countryFilters.map((item, index) => (
+														<option key={index} value={item.value}>
+															{item.name}
+														</option>
+													))}
+												</FormControl>
+											</Form.Group>
+										</Form.Row>
+										<Form.Row>
+											<Form.Group controlId="timestamp">
+												<Form.Label
+													style={{
+														color: 'rgb(236, 236, 236)',
+														fontWeight: 'bold'
+													}}
+												>
+													Timestamp
+												</Form.Label>
+												<FormControl
+													as="input"
+													type="datetime-local"
+													name="timestamp"
+													ref={c => (this.timestamp = c)}
+													onChange={this.handleDatePickerChange}
+												/>
+											</Form.Group>
+										</Form.Row>
+										<Form.Row>
+											<Form.Group controlId="limit" style={{ marginRight: 20 }}>
+												<Form.Label
+													style={{
+														color: 'rgb(236, 236, 236)',
+														fontWeight: 'bold'
+													}}
+												>
+													Limit
+												</Form.Label>
+												<FormControl
+													as="input"
+													name="limit"
+													type="number"
+													placeholder="5"
+													min="1"
+													max="50"
+													ref={c => (this.limit = c)}
+												/>
+											</Form.Group>
+											<Form.Group controlId="offset">
+												<Form.Label
+													style={{
+														color: 'rgb(236, 236, 236)',
+														fontWeight: 'bold'
+													}}
+												>
+													Offset
+												</Form.Label>
+												<FormControl
+													as="input"
+													name="offset"
+													type="number"
+													placeholder="5"
+													min="1"
+													max="50"
+													ref={c => (this.offset = c)}
+												/>
+											</Form.Group>
+										</Form.Row>
+										<br />
+										<Button variant="primary" type="submit">
+											Apply
+										</Button>
+									</Form>
+								</div>
 							</div>
-						</div>
-					</Collapse>
-					<Alert
-						dismissible
-						show={this.state.filterApplied}
-						onClose={this.closeModal}
-						variant="success"
-					>
-						<Alert.Heading>Filters applied!</Alert.Heading>
-						<hr />
-						<div className="d-flex justify-content-start">
-							<Button onClick={this.resetFilters} variant="outline-success">
-								Remove Filters
-							</Button>
-						</div>
-					</Alert>
+						</Collapse>
+					</div>
+					<div className="col-12">
+						<Alert
+							dismissible
+							show={this.state.filterApplied}
+							onClose={this.closeModal}
+							variant="success"
+							style={{ justifyContent: 'center' }}
+						>
+							<Alert.Heading>Filters applied!</Alert.Heading>
+							<hr />
+							<div className="d-flex justify-content-start">
+								<Button onClick={this.resetFilters} variant="outline-success">
+									Remove Filters
+								</Button>
+							</div>
+						</Alert>
+					</div>
 				</div>
-			</>
+			</div>
 		);
 	}
 }
