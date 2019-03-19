@@ -25,6 +25,8 @@ class Home extends Component {
 	};
 
 	componentDidMount() {
+		console.log(process.env);
+
 		api
 			.get('browse/featured-playlists')
 			.then(data => {

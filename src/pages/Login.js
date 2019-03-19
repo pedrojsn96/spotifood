@@ -64,9 +64,9 @@ export default class Login extends Component {
 				</div>
 				<div className="row justify-content-center">
 					{loading ? (
-						<div class="text-center">
-							<div class="spinner-border text-success" role="status">
-								<span class="sr-only">Loading...</span>
+						<div className="text-center">
+							<div className="spinner-border text-success" role="status">
+								<span className="sr-only">Loading...</span>
 							</div>
 						</div>
 					) : (
