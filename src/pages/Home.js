@@ -94,7 +94,7 @@ class Home extends Component {
 	componentWillMount() {
 		setInterval(() => {
 			this.syncMethod();
-		}, 3000);
+		}, 30000);
 	}
 
 	render() {
