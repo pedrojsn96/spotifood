@@ -7,7 +7,6 @@ import Store from './Store';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Test from './pages/Test';
 
 class App extends Component {
 	componentDidMount() {}
@@ -17,11 +16,9 @@ class App extends Component {
 			<Provider store={Store}>
 				<BrowserRouter>
 					<Switch>
-						{/* <Redirect path="/auth" to="/list" /> */}
 						<Redirect path="/auth" to="/home" />
 						<Route path="/" exact component={Login} />
 						<Route path="/home" component={Home} />
-						<Route path="/list" component={Test} />
 					</Switch>
 				</BrowserRouter>
 			</Provider>

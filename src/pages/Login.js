@@ -39,20 +39,18 @@ export default class Login extends Component {
 		this.setState({
 			loading: true
 		});
-		console.log('ENTREI HANDLE LOGIN');
+
 		localStorage.setItem('@SpotiFood:token', token);
 		localStorage.setItem('@SpotiFood:type', type);
 		localStorage.setItem('@SpotiFood:expires_in', expires_in);
 
-		// window.location.replace('http://localhost:3000/home');
-		// window.location.replace('http://spotifood-p.herokuapp.com/home');
+		window.history.pushState({ urlPath: '/auth' }, '', '/auth');
+
 		this.setState({
 			loading: false
 		});
-		console.log(this.state);
-		window.history.pushState({ urlPath: '/auth' }, '', '/auth');
+
 		window.location.reload();
-		// return window.history.pushState({ urlPath: '/auth' }, '', '/list');
 		return (
 			<Switch>
 				<Redirect path="/auth" to="/home" />
@@ -61,23 +59,15 @@ export default class Login extends Component {
 	};
 
 	componentDidMount() {
-		console.log('ENTREI');
 		const { access_token, token_type, expires_in } = this.getHashParams();
-		console.log(access_token, token_type, expires_in);
 
 		if (access_token !== undefined) {
-			console.log('ENTREI CONDICAO');
 			this.handleLogin(access_token, token_type, expires_in);
-			// this.setState({
-			// 	loading: true
-			// });
 		}
 	}
 
 	render() {
-		console.log('RENDER');
 		const { loading } = this.state;
-		console.log(this.state);
 		return (
 			<form className="form-signin">
 				<div className="text-center mb-4">
