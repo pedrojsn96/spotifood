@@ -25,14 +25,14 @@ export default class Login extends Component {
 
 	handleSignin = e => {
 		e.preventDefault();
-		window.open(
-			`https://accounts.spotify.com/authorize?client_id=77e2595877a442789caa9dc925f30ef4&response_type=token&redirect_uri=http%3A%2F%2Flocalhost%3A3000&scope=user-read-private%20user-read-email&state=34fFs29kd09`,
-			'_self'
-		);
 		// window.open(
-		// 	`https://accounts.spotify.com/authorize?client_id=77e2595877a442789caa9dc925f30ef4&response_type=token&redirect_uri=https%3A%2F%2Fspotifood-p.herokuapp.com&scope=user-read-private%20user-read-email&state=34fFs29kd09`,
+		// 	`https://accounts.spotify.com/authorize?client_id=77e2595877a442789caa9dc925f30ef4&response_type=token&redirect_uri=http%3A%2F%2Flocalhost%3A3000&scope=user-read-private%20user-read-email&state=34fFs29kd09`,
 		// 	'_self'
 		// );
+		window.open(
+			`https://accounts.spotify.com/authorize?client_id=77e2595877a442789caa9dc925f30ef4&response_type=token&redirect_uri=https%3A%2F%2Fspotifood-p.herokuapp.com&scope=user-read-private%20user-read-email&state=34fFs29kd09`,
+			'_self'
+		);
 	};
 
 	handleLogin = (token, type, expires_in) => {
