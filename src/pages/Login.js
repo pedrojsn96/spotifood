@@ -41,8 +41,8 @@ export default class Login extends Component {
 		localStorage.setItem('@SpotiFood:expires_in', expires_in);
 
 		// window.location.replace('http://localhost:3000/home');
-		// window.location.replace('http://spotifood-p.herokuapp.com/home');
-		<Redirect to="/home" push={true} />;
+		window.location.replace('http://spotifood-p.herokuapp.com/home');
+		// <Redirect to="/home" push={true} />;
 	};
 
 	componentDidMount() {
