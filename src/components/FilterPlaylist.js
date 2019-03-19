@@ -88,7 +88,7 @@ class FilterPlaylist extends Component {
 
 		const response = await api.get('browse/featured-playlists', {
 			params: {
-				limit: 5
+				limit: 4
 			}
 		});
 
@@ -114,7 +114,7 @@ class FilterPlaylist extends Component {
 			params: {
 				type: 'playlist',
 				q: search,
-				limit: 5
+				limit: 4
 			}
 		});
 

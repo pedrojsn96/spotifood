@@ -19,14 +19,13 @@ import ListPlaylist from '../components/ListPlaylist';
 
 class Home extends Component {
 	state = {
-		search: '',
 		playlists: []
 	};
 
 	async componentDidMount() {
 		const response = await api.get('browse/featured-playlists', {
 			params: {
-				limit: 5
+				limit: 4
 			}
 		});
 		this.props.listPlaylists(response.data.playlists.items);
