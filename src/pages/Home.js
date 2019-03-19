@@ -23,11 +23,7 @@ class Home extends Component {
 	};
 
 	async componentDidMount() {
-		const response = await api.get('browse/featured-playlists', {
-			params: {
-				limit: 4
-			}
-		});
+		const response = await api.get('browse/featured-playlists');
 		this.props.listPlaylists(response.data.playlists.items);
 	}
 

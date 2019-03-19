@@ -86,11 +86,7 @@ class FilterPlaylist extends Component {
 	resetFilters = async e => {
 		e.preventDefault();
 
-		const response = await api.get('browse/featured-playlists', {
-			params: {
-				limit: 4
-			}
-		});
+		const response = await api.get('browse/featured-playlists');
 
 		this.props.listPlaylists(response.data.playlists.items);
 
@@ -108,18 +104,25 @@ class FilterPlaylist extends Component {
 	handleNewSearch = async e => {
 		if (e.keyCode !== 13) return;
 
+		const response = await api.get('browse/featured-playlists');
+
+		const playlists = response.data.playlists.items;
+
 		const search = this.state.search;
 
-		const searchResponse = await api.get('search', {
-			params: {
-				type: 'playlist',
-				q: search,
-				limit: 4
+		let filteredPlaylist = playlists.filter(playlist => {
+			if (playlist.name.toLowerCase().includes(search)) {
+				return playlist;
 			}
+			return null;
 		});
 
-		this.props.searchPlaylists(searchResponse.data.playlists.items);
-		this.setState({ search: '' });
+		this.props.searchPlaylists(filteredPlaylist);
+		this.setState({
+			openFilterOptions: false,
+			filterApplied: true,
+			search: ''
+		});
 	};
 
 	handleSearchChange = e => {
@@ -138,9 +141,6 @@ class FilterPlaylist extends Component {
 			<>
 				<div className="filter-options">
 					<InputGroup className="search-form">
-						<InputGroup.Prepend>
-							<InputGroup.Text>@</InputGroup.Text>
-						</InputGroup.Prepend>
 						<FormControl
 							placeholder="Search a playlist ... (Press Enter to Search)"
 							aria-label="Search"
@@ -150,7 +150,7 @@ class FilterPlaylist extends Component {
 						/>
 					</InputGroup>
 
-					<div className="button-filter-options">
+					<div className="form-group button-filter-options">
 						<Button
 							onClick={() =>
 								this.setState({ openFilterOptions: !openFilterOptions })
@@ -254,6 +254,8 @@ class FilterPlaylist extends Component {
 												name="limit"
 												type="number"
 												placeholder="5"
+												min="1"
+												max="50"
 												ref={c => (this.limit = c)}
 											/>
 										</Form.Group>
@@ -271,6 +273,8 @@ class FilterPlaylist extends Component {
 												name="offset"
 												type="number"
 												placeholder="5"
+												min="1"
+												max="50"
 												ref={c => (this.offset = c)}
 											/>
 										</Form.Group>
