@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Redirect } from 'react-router';
+import { Switch, Redirect } from 'react-router-dom';
 
 import './Login.css';
 import spotifyLogo from '../spotify.png';
@@ -40,9 +40,12 @@ export default class Login extends Component {
 		localStorage.setItem('@SpotiFood:type', type);
 		localStorage.setItem('@SpotiFood:expires_in', expires_in);
 
+		sessionStorage.setItem('@SpotiFood:token', token);
+		sessionStorage.setItem('@SpotiFood:type', type);
+		sessionStorage.setItem('@SpotiFood:expires_in', expires_in);
+
 		// window.location.replace('http://localhost:3000/home');
 		window.location.replace('http://spotifood-p.herokuapp.com/home');
-		// <Redirect to="/home" push={true} />;
 	};
 
 	componentDidMount() {
