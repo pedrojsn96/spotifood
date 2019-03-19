@@ -27,6 +27,24 @@ class Home extends Component {
 		this.props.listPlaylists(response.data.playlists.items);
 	}
 
+	syncMethod = () => {
+		api
+			.get('browse/featured-playlists')
+			.then(data => {
+				this.props.listPlaylists(data.data.playlists.items);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	};
+
+	componentWillMount() {
+		setInterval(() => {
+			// window.location.reload();
+			this.syncMethod();
+		}, 30000);
+	}
+
 	render() {
 		return (
 			<div className="container">
