@@ -241,6 +241,7 @@ class FilterPlaylist extends Component {
 												</Form.Label>
 												<FormControl
 													as="input"
+													placeholder="2014-10-23T07:00:00"
 													type="datetime-local"
 													name="timestamp"
 													ref={c => (this.timestamp = c)}
