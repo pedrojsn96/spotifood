@@ -13,10 +13,11 @@ export default class Login extends Component {
 			params: {
 				client_id: '77e2595877a442789caa9dc925f30ef4',
 				response_type: 'code',
-				redirect_uri: 'http://localhost:3000'
+				redirect_uri: 'https://spotifood-p.herokuapp.com'
 			},
 			headers: {
-				'Access-Control-Allow-Origin': '*'
+				'Access-Control-Allow-Origin': '*',
+				'Content-Type': 'application/json'
 			}
 		});
 		console.log(response);
