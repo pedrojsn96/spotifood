@@ -52,6 +52,7 @@ class FilterPlaylist extends Component {
 	};
 
 	handleApplyFilter = e => {
+		const { callbackFromParent } = this.props;
 		e.preventDefault();
 
 		const country = this.country.value === 'empty' ? null : this.country.value;
@@ -93,6 +94,9 @@ class FilterPlaylist extends Component {
 			openFilterOptions: false,
 			filterApplied: true
 		});
+		return callbackFromParent({
+			filterApplied: true
+		});
 	};
 
 	resetFilters = e => {
@@ -117,6 +121,10 @@ class FilterPlaylist extends Component {
 		this.setState({
 			filterApplied: false
 		});
+
+		return this.props.callbackFromParent({
+			filterApplied: false
+		});
 	};
 
 	closeModal = () => {
@@ -128,6 +136,7 @@ class FilterPlaylist extends Component {
 	handleNewSearch = async e => {
 		if (e.keyCode !== 13) return;
 
+		const { callbackFromParent } = this.props;
 		const response = await api.get('browse/featured-playlists');
 
 		if (response.status === 401) {
@@ -150,10 +159,15 @@ class FilterPlaylist extends Component {
 			});
 
 			this.props.searchPlaylists(filteredPlaylist);
+
 			this.setState({
 				openFilterOptions: false,
 				filterApplied: true,
 				search: ''
+			});
+
+			return callbackFromParent({
+				filterApplied: true
 			});
 		}
 	};

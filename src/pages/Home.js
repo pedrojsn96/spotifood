@@ -22,7 +22,8 @@ class Home extends Component {
 	state = {
 		playlists: [],
 		expiredToken: false,
-		hasAuthorization: false
+		hasAuthorization: false,
+		filterApplied: false
 	};
 
 	hasAuthorization = () => {
@@ -30,10 +31,20 @@ class Home extends Component {
 	};
 
 	syncMethod = () => {
+		const { filterApplied } = this.state;
 		api
 			.get('browse/featured-playlists')
 			.then(data => {
-				this.props.listPlaylists(data.data.playlists.items);
+				if (filterApplied) {
+					this.setState({
+						playlists: this.state.playlists
+					});
+				} else {
+					this.props.listPlaylists(data.data.playlists.items);
+					this.setState({
+						playlists: this.state.playlists
+					});
+				}
 			})
 			.catch(error => {
 				if (error.response.status === 401) {
@@ -47,23 +58,6 @@ class Home extends Component {
 			});
 	};
 
-	showError = () => {
-		return (
-			<>
-				<Alert
-					dismissible
-					show={this.state.filterApplied}
-					onClose={this.closeModal}
-					variant="danger"
-					style={{ justifyContent: 'center' }}
-				>
-					<Alert.Heading>Sorry, you don't have access!</Alert.Heading>
-					<hr />
-				</Alert>
-			</>
-		);
-	};
-
 	componentDidMount() {
 		if (this.hasAuthorization()) {
 			this.setState({ hasAuthorization: true });
@@ -71,6 +65,9 @@ class Home extends Component {
 				.get('browse/featured-playlists')
 				.then(data => {
 					this.props.listPlaylists(data.data.playlists.items);
+					this.setState({
+						playlists: this.props.playlists
+					});
 				})
 				.catch(error => {
 					if (error.response.status === 401) {
@@ -97,8 +94,14 @@ class Home extends Component {
 		}, 30000);
 	}
 
+	myCallFromParent = dataFromChild => {
+		this.setState({
+			filterApplied: dataFromChild.filterApplied
+		});
+	};
+
 	render() {
-		const { expiredToken, hasAuthorization } = this.state;
+		const { expiredToken, hasAuthorization, playlists } = this.state;
 		return (
 			<div className="container">
 				<div className="title-header">
@@ -108,15 +111,15 @@ class Home extends Component {
 				<div className="row">
 					{hasAuthorization ? (
 						<>
-							<FilterPlaylist />
+							<FilterPlaylist callbackFromParent={this.myCallFromParent} />
 							<div className="col-12">
 								{!expiredToken ? (
-									<ListPlaylist playlists={this.props.playlists} />
+									<ListPlaylist playlists={playlists.playlists} />
 								) : (
 									<Alert
 										dismissible
-										show={this.state.filterApplied}
-										onClose={this.closeModal}
+										show={expiredToken}
+										onClose={() => null}
 										variant="danger"
 										style={{ justifyContent: 'center' }}
 									>
@@ -127,7 +130,18 @@ class Home extends Component {
 							</div>
 						</>
 					) : (
-						this.showError()
+						<>
+							<Alert
+								dismissible
+								show={!hasAuthorization}
+								onClose={() => null}
+								variant="danger"
+								style={{ justifyContent: 'center' }}
+							>
+								<Alert.Heading>Sorry, you don't have access!</Alert.Heading>
+								<hr />
+							</Alert>
+						</>
 					)}
 				</div>
 			</div>
@@ -136,7 +150,8 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-	playlists: state.playlists
+	playlists: state.playlists,
+	filteredPlaylists: state.filteredPlaylists
 });
 
 const mapDispatchToProps = dispatch =>

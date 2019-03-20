@@ -1,4 +1,8 @@
-export default function playlists(state = [], action) {
+const INITIAL_STATE = {
+	playlists: []
+};
+
+export default function playlists(state = INITIAL_STATE, action) {
 	switch (action.type) {
 		case 'LIST_PLAYLISTS':
 			return [action.playlists];
