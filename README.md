@@ -35,9 +35,9 @@ Abaixo falarei um pouco sobre o desenvolvimento.
 
 <!-- show case/gif section -->
 <p align="center">
-    <img alt="login.gif" height="300" width="300" src="https://media.giphy.com/media/1ZkJudCIp2CFQSQkGa/giphy.gif" />
-    <img alt="filter.gif" height="300" width="300" src="https://media.giphy.com/media/RJhdOA2Ua8nMqJrOuw/giphy.gif" />
-    <img alt="invalid-access.gif" height="300" width="300" src="https://media.giphy.com/media/5txxSZL2FSgw8H12xQ/giphy.gif" />
+    <img alt="login.gif" height="450" src="https://media.giphy.com/media/1ZkJudCIp2CFQSQkGa/giphy.gif" />
+    <img alt="filter.gif" height="450" src="https://media.giphy.com/media/RJhdOA2Ua8nMqJrOuw/giphy.gif" />
+    <img alt="invalid-access.gif" height="450" src="https://media.giphy.com/media/5txxSZL2FSgw8H12xQ/giphy.gif" />
 </p>
 <!-- show case/gif section END -->
 
