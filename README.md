@@ -21,17 +21,7 @@ We will use one API from Spotify Web API. You should follow the Spotify guide in
 To mount the API filter fields on the filter component, you **must** consume the API that provides the metadata about the fields (Link 1).
 You could use Material UI, Bootstrap or any other toolkit to accelerate your resolution. We will not provide any UI prototype or design.
 
-## Non functional requirements
-
-As this application will be a worldwide success, it must be prepared to be accessible, responsive, fault tolerant and resilient.
-We **strongly recommend** using React to build the application.
-Also, briefly elaborate on your solution architecture details, choice of patterns and frameworks.
-Fork this repository and submit your code.
-
 ### DEV Notes
-
-Todos os pontos do desafio proposto foram implementados.
-Abaixo falarei um pouco sobre o desenvolvimento.
 
 <!-- show case/gif section -->
 <p align="center">
