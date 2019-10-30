@@ -55,7 +55,7 @@ You could use Material UI, Bootstrap or any other toolkit to accelerate your res
 - [moment](https://momentjs.com/)
 - > Nota: Para manipulação de data e tempo
 
-### Rodando o projeto localmente
+### Rodando o projeto
 
 - `git clone https://github.com/pedrojsn96/ifood-frontend-test.git`
 - `npm i`
